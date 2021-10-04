@@ -41,7 +41,7 @@ namespace Library
                 mysqlCon.Open();
 
                 MySqlDataAdapter MyDA = new MySqlDataAdapter();
-                string sqlSelectAll = "select venda_id AS 'ID de Venda',cliente_venda_info_id AS 'Cliente ID',nome AS 'Cliente', Pagamento_Forma AS 'Forma de Pagamento', DATE_FORMAT(venda_data,'%d/%m/%Y') AS 'Data',venda_info_id AS 'ID venda individual',livro_venda_info_id AS 'ID do Livro', titulo AS 'Titulo do Livro',quantidade,valor_unit AS 'Valor Unitário', Valor_total AS 'Valor Total' from vendas,vendas_info,clientes,livros WHERE venda_id=venda_total_id AND cliente_venda_info_id=cliente_id AND livro_venda_info_id=livro_id group by venda_info_id order by venda_id desc,venda_info_id desc  ;";
+                string sqlSelectAll = "select venda_id AS 'ID de Venda',cliente_venda_info_id AS 'Cliente ID',nome AS 'Cliente', Pagamento_Forma AS 'Forma de Pagamento', DATE_FORMAT(venda_data,'%d/%m/%Y') AS 'Data',venda_info_id AS 'ID venda individual',livro_venda_info_id AS 'ID do Livro', titulo AS 'Titulo do Livro',quantidade,valor_unit AS 'Valor Unitário', Valor_total AS 'Valor Total da Venda' from vendas,vendas_info,clientes,livros WHERE venda_id=venda_total_id AND cliente_venda_info_id=cliente_id AND livro_venda_info_id=livro_id group by venda_info_id order by venda_id desc,venda_info_id desc  ;";
 
                 MyDA.SelectCommand = new MySqlCommand(sqlSelectAll, mysqlCon);
 
@@ -73,18 +73,18 @@ namespace Library
             {
                 case "Cliente":
                     Column_Read_Vendas = "Cliente";
-                    sqlSelectAll = "select venda_id AS 'ID de Venda',cliente_venda_info_id AS 'Cliente_ID',nome AS 'Cliente', Pagamento_Forma AS 'Forma de Pagamento', DATE_FORMAT(venda_data,'%d/%m/%Y') AS 'Data',venda_info_id AS 'ID venda individual',livro_venda_info_id AS 'ID do Livro', titulo AS 'Titulo do Livro',quantidade,valor_unit AS 'Valor Unitário', Valor_total AS 'Valor Total' from vendas,vendas_info,clientes,livros WHERE venda_id=venda_total_id AND cliente_venda_info_id=cliente_id AND livro_venda_info_id=livro_id AND Nome LIKE '%"+ Pesquisa_TextBox.Text +"%' group by venda_info_id order by venda_id desc,venda_info_id desc  ;";
+                    sqlSelectAll = "select venda_id AS 'ID de Venda',cliente_venda_info_id AS 'Cliente_ID',nome AS 'Cliente', Pagamento_Forma AS 'Forma de Pagamento', DATE_FORMAT(venda_data,'%d/%m/%Y') AS 'Data',venda_info_id AS 'ID venda individual',livro_venda_info_id AS 'ID do Livro', titulo AS 'Titulo do Livro',quantidade,valor_unit AS 'Valor Unitário', Valor_total AS 'Valor Total da Venda' from vendas,vendas_info,clientes,livros WHERE venda_id=venda_total_id AND cliente_venda_info_id=cliente_id AND livro_venda_info_id=livro_id AND Nome LIKE '%" + Pesquisa_TextBox.Text +"%' group by venda_info_id order by venda_id desc,venda_info_id desc  ;";
                     break;
                 case "Titulo do Livro":
                     Column_Read_Vendas = "Titulo";
-                    sqlSelectAll = "select venda_id AS 'ID de Venda',cliente_venda_info_id AS 'Cliente_ID',nome AS 'Cliente', Pagamento_Forma AS 'Forma de Pagamento', DATE_FORMAT(venda_data,'%d/%m/%Y') AS 'Data',venda_info_id AS 'ID venda individual',livro_venda_info_id AS 'ID do Livro', titulo AS 'Titulo do Livro',quantidade,valor_unit AS 'Valor Unitário', Valor_total AS 'Valor Total' from vendas,vendas_info,clientes,livros WHERE venda_id=venda_total_id AND cliente_venda_info_id=cliente_id AND livro_venda_info_id=livro_id AND titulo LIKE '%" + Pesquisa_TextBox.Text + "%' group by venda_info_id order by venda_id desc,venda_info_id desc  ;";
+                    sqlSelectAll = "select venda_id AS 'ID de Venda',cliente_venda_info_id AS 'Cliente_ID',nome AS 'Cliente', Pagamento_Forma AS 'Forma de Pagamento', DATE_FORMAT(venda_data,'%d/%m/%Y') AS 'Data',venda_info_id AS 'ID venda individual',livro_venda_info_id AS 'ID do Livro', titulo AS 'Titulo do Livro',quantidade,valor_unit AS 'Valor Unitário', Valor_total AS 'Valor Total da Venda' from vendas,vendas_info,clientes,livros WHERE venda_id=venda_total_id AND cliente_venda_info_id=cliente_id AND livro_venda_info_id=livro_id AND titulo LIKE '%" + Pesquisa_TextBox.Text + "%' group by venda_info_id order by venda_id desc,venda_info_id desc  ;";
                     break;
                 case "Data":
                     Column_Read_Vendas = "Data";
                     //modificar dados para pesquisa de DATA
                     Data_Replace = (Pesquisa_TextBox.Text).Replace("/", " ");
                     Data_Replace = (Data_Replace).Replace("-", " ");
-                    sqlSelectAll = "select venda_id AS 'ID de Venda',cliente_venda_info_id AS 'Cliente_ID',nome AS 'Cliente', Pagamento_Forma AS 'Forma de Pagamento', DATE_FORMAT(venda_data,'%d/%m/%Y') AS 'Data',venda_info_id AS 'ID venda individual',livro_venda_info_id AS 'ID do Livro', titulo AS 'Titulo do Livro',quantidade,valor_unit AS 'Valor Unitário', Valor_total AS 'Valor Total' from vendas,vendas_info,clientes,livros WHERE venda_id=venda_total_id AND cliente_venda_info_id=cliente_id AND livro_venda_info_id=livro_id AND  venda_data= STR_TO_DATE('" + Data_Replace + "', '%d %m %Y') group by venda_info_id order by venda_id desc,venda_info_id desc  ;";
+                    sqlSelectAll = "select venda_id AS 'ID de Venda',cliente_venda_info_id AS 'Cliente_ID',nome AS 'Cliente', Pagamento_Forma AS 'Forma de Pagamento', DATE_FORMAT(venda_data,'%d/%m/%Y') AS 'Data',venda_info_id AS 'ID venda individual',livro_venda_info_id AS 'ID do Livro', titulo AS 'Titulo do Livro',quantidade,valor_unit AS 'Valor Unitário', Valor_total AS 'Valor Total da Venda' from vendas,vendas_info,clientes,livros WHERE venda_id=venda_total_id AND cliente_venda_info_id=cliente_id AND livro_venda_info_id=livro_id AND  venda_data= STR_TO_DATE('" + Data_Replace + "', '%d %m %Y') group by venda_info_id order by venda_id desc,venda_info_id desc  ;";
                     Console.WriteLine(sqlSelectAll);
                     Console.ReadLine();
                     break;

@@ -161,7 +161,13 @@ namespace Library
                     if (oneCell.Selected)
                         try
                         {
+                           if (oneCell.RowIndex == 3)
+                            {
+                                desconto = 0; //caso seja a quarta fileira o desconto sera feito novamente
+                            }
+
                             Inseridos_Data.Rows.RemoveAt(oneCell.RowIndex);
+                            Valor_Total_Calc();
                         }
                         catch (Exception ex)
                         {
@@ -221,9 +227,11 @@ namespace Library
                             desconto_calc = desconto_calc / 100;
                             desconto_calc = Math.Round(desconto_calc, 2);
                             Inseridos_Data.Rows[3].Cells[2].Value = valor_original - desconto_calc;
+                            decimal soma_valor_desc = Convert.ToDecimal(Inseridos_Data.Rows[3].Cells[2].Value);
+                            decimal soma_quant_desc = Convert.ToDecimal(Inseridos_Data.Rows[3].Cells[3].Value);
+                            Inseridos_Data.Rows[3].Cells[4].Value = soma_valor_desc * soma_quant_desc;
                             desconto++;
                         }
-
 
                     }
                     //criando array para pegar os valores do row
